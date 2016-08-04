@@ -1,0 +1,20 @@
+{
+  "name": "automat-api",
+  "version": "1.0.0",
+  "description": "Core API Tests",
+  "author": "Platform QA Team",
+  "license": "UNLICENSED",
+  "scripts": {
+    "setup": "npm update",
+    "test-api" : "node ./tests/.js",
+    "test-mocha": "mocha ./tests/.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blippar/automat-api.git"
+  },
+  "dependencies": {
+    "mocha":  "~3.0.0",
+    "protractor": "~4.0.0"
+  }
+}
