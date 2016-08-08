@@ -1,119 +1,204 @@
 'use strict';
-var request = require('request');
+var https = require('https');
 var fs = require('fs');
+ ( function () {
 var token ='testingblipparapionly-forQE';
-var baseurl = 'https://sf-qa-api.dev.blippar.com';
-var trans_ser = 'https://sf-mediacoder.dev.blippar.com/api/v1/transcoder/jobs';
-var headers = {'Authorization': 'testingblipparapionly-forQE' };
-
-var resp;
+var baseurl = 'sf-qa-api.dev.blippar.com';
+var trans_ser = 'sf-mediacoder.dev.blippar.com';
+var headers = {"Authorization": token};
 
 /** Generic reusable fetch method.
- *
- * api parameter to be passed.
- * Eg: /api/group/:groupid as '/api/group/7'
- **/
-var fetcher = function(api) {
-
-         var options = {
-                 method: 'GET',
-                 url: baseurl+api,
-                 headers: headers
+*
+* fetchapi parameter to be passed.
+* Eg: /group/:groupid as '/group/7'
+**/
+var fetcher = function(fetchapi,callback) {
+             var resp = '';
+             var options = {
+                 "host": baseurl,
+                 "path": '/api'+fetchapi,
+                 "headers": headers
              };
 
-         request(options, function(error,response, body){
-                console.log('Fetched :' + body);
-                 resp = body;
-                 return resp;
-          });
- };
+             try{
+                    var res = https.get(options, function(response){
+                       response.on('data', function(text){
+                        resp += text;
+                    });
 
-/** Generic reusable POST method.
- *
- * createapi parameter to be passed.
- * Eg:
- *  1. For Campaign creation 'api/group/:groupId/campaign' as 'api/group/7335/campaign
- *  2. For Blipp creatoon '/api/campaign/:campaignId/blipp' as '/api/campaign/81245/blipp' with body
- *  3. For Group creation '/api/group' as '/api/group' with body
- **/
- var creator = function(createapi, body) {
+                       response.on('end', function(){
+                          callback(resp);
+                       });
+                    });
 
-        var options = {
-                method : 'POST',
-                url : baseurl+createapi,
-                headers : {'Authorization': token},
-                json: body
-        };
-
-        request(options, function(error, response, body){
-                console.log('Created > ', body);
-        });
+                    res.end();
+               }
+               catch(e){
+                    console.log('FETCH Error');
+                    callback(e);
+               }
 };
 
- /** Generic reusable method.
-  *
-  * deleteapi parameter to be passed.
-  * Eg:
-  *  1. For Project Deletion '/api/campaign/:campaignId' as '/api/campaign/81251'
-  *  2. For Blipp Deletion '/api/blipp/:blippId' as '/api/blipp/130737'
-  *  3. For Group Deleteion '/api/group/7407'' as '/api/group' with body
-  **/
-var remover = function(deleteapi) {
 
+/** Generic reusable POST method.
+*
+* createapi parameter to be passed.
+* Eg:
+*  1. For Campaign creation '/group/:groupId/campaign' as '/group/7335/campaign
+*  2. For Blipp creatoon '/campaign/:campaignId/blipp' as '/campaign/81245/blipp' with body
+*  3. For Group creation '/group' as '/group' with body
+**/
+var creator = function(createapi, reqbody, callback) {
+        var resp = '';
         var options = {
-                method : 'DELETE',
-                url : baseurl+deleteapi,
-                headers : {'Authorization': token}
+          "method": "POST",
+          "host": baseurl,
+          "path": "/api"+createapi,
+          "headers": { "authorization": token, "cache-control": "no-cache"  }
         };
 
-        request(options, function(error, response, body){
-               console.log('Deleted  > ', body);
-        });
+        try{
+                   var res = https.request(options, function (response) {
+                             var resp = [];
+                             response.on("data", function (text) {
+                             resp.push(text);
+                         });
+
+                     response.on("end", function () {
+                         var body = Buffer.concat(resp);
+                         //console.log("Body "+body.toString());
+                         callback(body);
+                     });
+               });
+
+               res.write(JSON.stringify(reqbody));
+               res.end();
+        }
+        catch(e){
+            console.log('CREATION Error');
+            callback(e);
+        }
+};
+
+/** Generic reusable method.
+*
+* deleteapi parameter to be passed.
+* Eg:
+*  1. For Project Deletion '/campaign/:campaignId' as '/campaign/81251'
+*  2. For Blipp Deletion '/blipp/:blippId' as '/blipp/130737'
+*  3. For Group Deleteion '/group/7407'' as '/group' with body  - Permission Error with Token we have as its Role is Blippar Admin
+**/
+var remover = function(deleteapi,callback) {
+        var resp = '';
+        var options = {
+          "method": "DELETE",
+          "host": baseurl,
+          "path": "/api"+deleteapi,
+          "headers": { "Authorization": token, "cache-control": "no-cache"  }
+        };
+
+        try{
+              var res = https.request(options, function (response) {
+              var resp = [];
+
+              response.on("data", function (text) {
+                resp.push(text);
+              });
+
+              res.on("end", function () {
+                 var body = Buffer.concat(resp);
+                 // console.log(body.toString());
+                 callback(body);
+              });
+            });
+
+           res.end();
+
+        }
+        catch(e){
+           console.log('DELETION Error');
+           callback(e);
+        }
 };
 
 /**
- *  Reusable method to submit a file for transcoding
- *
- *  file as /../assets/file.format
- *
- **/
-var mediacoder = function(afile) {
-
-    var formData = {
-        input_file: fs.createReadStream(__dirname + afile)
-     };
-
+*  Reusable method to submit a file for transcoding
+*
+*  file as /../assets/file.format
+*
+**/
+var mediauploader = function(afile, callback) {
+     var transpath = "/api/v1/transcoder/jobs";
+     var formData = {
+             input_file: fs.createReadStream(__dirname + afile)
+          };
      var options = {
-         method : 'POST',
-         url : trans_ser,
-         headers : {'Authorization': 'CT6QADgYxqIR6g6CNrAKF0Xx4CN0Xd'},
-         formData: formData
-     };
+      "method": "POST",
+      "hostname": trans_ser,
+      "path": transpath,
+      "headers": {
+             "Authorization": token, "cache-control": "no-cache"  },
+      "form-data": formData
+    };
 
-     request(options, function(err, response, body) {
-       if (err) {
-           return console.error('upload failed:', err);
-       }
-       console.log('Upload successful!  Server responded with:', body);
-     });
+    try{
+            var res = https.request(options, function (response) {
+            var resp = [];
+
+            response.on("data", function (text) {
+              resp.push(text);
+            });
+
+            response.on("end", function () {
+              var body = Buffer.concat(resp);
+              console.log(body.toString());
+              callback(body);
+            });
+          });
+      res.end();
+    }catch(e){
+       console.log('UPLOAD ERROR');
+       callback(e);
+    }
 };
 
-var mediapoller = function(transapi) {
-      var options = {
-           method: 'GET',
-           url: trans_ser+transapi,
-           headers: {'Authorization': 'CT6QADgYxqIR6g6CNrAKF0Xx4CN0Xd'}
-      };
 
-      request(options, function(error,response, body){
-          console.log('Mediacoder job details :' + body);
-          resp = body;
-          return resp;
-      });
+/**
+*  Reusable method to retrieve job details of submitted media for transocding
+*
+*  file as /../assets/file.format
+*
+**/
+
+var mediapoller = function(pollapi,callback) {
+
+             var resp = [];
+             var options = {
+                 "host": trans_ser,
+                 "path": pollapi,
+                 "headers": headers
+             };
+
+             try{
+                    var res = https.get(options, function(response){
+                       response.on('data', function(text){
+                         resp.push(text);
+                       });
+
+                       response.on('end', function(){
+                          var body = Buffer.concat(resp);
+                          console.log(body.toString());
+                          callback(body);
+                       });
+                    });
+
+                    res.end();
+               }
+               catch(e){
+                    console.log('FETCH media details Error');
+                    callback(e);
+               }
 };
-
-
-
 
 
 var CoreAPI = function () {
@@ -122,6 +207,9 @@ var CoreAPI = function () {
 CoreAPI.prototype.fetcher = fetcher;
 CoreAPI.prototype.creator = creator;
 CoreAPI.prototype.remover = remover;
-CoreAPI.prototype.mediacoder = mediacoder;
+CoreAPI.prototype.mediauploader = mediauploader;
 CoreAPI.prototype.mediapoller = mediapoller;
 module.exports = CoreAPI;
+
+}
+)();
