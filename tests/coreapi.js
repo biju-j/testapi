@@ -169,7 +169,6 @@ var mediauploader = function(afile, callback) {
 *  file as /../assets/file.format
 *
 **/
-
 var mediapoller = function(pollapi,callback) {
 
              var resp = [];
@@ -187,7 +186,7 @@ var mediapoller = function(pollapi,callback) {
 
                        response.on('end', function(){
                           var body = Buffer.concat(resp);
-                          console.log(body.toString());
+                          // console.log(body.toString());
                           callback(body);
                        });
                     });
