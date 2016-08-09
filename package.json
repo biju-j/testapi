@@ -6,8 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "setup": "npm update",
-    "test-api" : "node ./tests/.js",
-    "test-mocha": "mocha ./tests/.js"
+    "apitests": "mocha ./tests/apitests.js"
   },
   "repository": {
     "type": "git",

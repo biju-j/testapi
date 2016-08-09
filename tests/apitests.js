@@ -240,18 +240,18 @@ describe('Tests for Group Tests', function(){
                     });
              });
 
-           it('All Services fetch ', function(done){
+           it('All Services fetch - EXPECTED FAILURE due to CheckPermissions Fn20', function(done){     // PERMISSIONS ERROR CheckPermissions Fn20
                      coreapi.fetcher('/services', function(text){
                      // console.log("ALL SERVICES  > "+text);
-                     expect(text).to.not.contain("AssociatedError");  // PERMISSIONS ERROR CheckPermissions Fn20
+                     expect(text).to.not.contain("AssociatedError");
                      done();
                   });
              });
 
-           it('All Functions fetch ', function(done){
-                     coreapi.fetcher('/functions', function(text){
+           it('All Functions fetch - EXPECTED FAILURE due to CheckPermissions Fn22', function(done){
+                     coreapi.fetcher('/functions', function(text){    // PERMISSIONS ERROR CheckPermissions Fn22
                      // console.log("ALL FUNCTIONS  > "+text);
-                     expect(text).to.not.contain("AssociatedError");  // PERMISSIONS ERROR CheckPermissions Fn22
+                     expect(text).to.not.contain("AssociatedError");
                      done();
                   });
              });
