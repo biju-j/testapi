@@ -11,5 +11,5 @@ Core API tests - Steps to run
 
     5. Run Tests as npm run apitests
     
-       Test should be run and there should be Passing and Failures(Red).  
-       FAILURES seen are expected due to few Negative tests and lack of Permissionf for the user. 
+       Tests should be run and Passing and Failing(Red) tests displayed.  
+       FAILURES are expected due to few Negative tests and lack of Permissions for the user. 
