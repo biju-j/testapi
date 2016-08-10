@@ -14,6 +14,9 @@
   },
   "dependencies": {
     "mocha":  "~3.0.2",
-    "chai":   "~2.3.0"
+    "mochawesome": "~1.4.0",
+    "chai":   "~2.3.0",
+    "figlet": "~1.1.2"
+
   }
 }

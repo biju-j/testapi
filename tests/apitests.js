@@ -6,8 +6,16 @@ var chai   = require( 'chai' );
 var expect = chai.expect;
 var now = new Date();
 var coreapi = new CoreAPI();
-describe('Tests for Group Tests', function(){
+var figlet = require("figlet");
+
+describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', function(){
            this.timeout(200000);
+            figlet.text("API Tests", function(error, data) {
+               if (error)
+                 console.error(error);
+               else
+                 console.log(data);
+             });
 
            it('All Groups fetch', function(done){
                      coreapi.fetcher('/groups', function(text){
@@ -35,7 +43,7 @@ describe('Tests for Group Tests', function(){
             });
 
 
-           it('Group 0 Details fetch - Negative test', function(done){
+           it('Group 0 Details fetch - EXPECTED FAILURE(Negative test)', function(done){
                     coreapi.fetcher('/group/0/details', function(text){
                     // console.log('Group 0 >'+text);
                     expect(text).to.not.contain("AssociatedError");
@@ -62,7 +70,6 @@ describe('Tests for Group Tests', function(){
            it('Group Statuses', function(done){
                       coreapi.fetcher('/groupstatuses', function(text){
                       expect(text).to.contain("Pending", "Active", "Expired", "Cancelled", "Deleted", "Draft");
-                      // expect(text).to.contain("Disabled");
                       done();
                   });
               });
@@ -141,6 +148,21 @@ describe('Tests for Group Tests', function(){
                  });
            });
 
+           it('Existent Email check', function(done){
+                   coreapi.fetcher('/email/exists/bijupja.na@gmail.com', function(text){
+                   expect(text.trim()).to.equal("true");
+                   done();
+                 });
+           });
+
+           it('Non-existent Email check', function(done){
+                      coreapi.fetcher('/email/exists/simple@gmail.com', function(text){
+                      expect(text.trim()).to.equal("false");
+                      done();
+                  });
+           });
+
+
            it('User Status', function(done){
                    coreapi.fetcher('/user/6411/status', function(text){
                    // console.log("Existent USER Status > "+text);
@@ -149,7 +171,7 @@ describe('Tests for Group Tests', function(){
                  });
            });
 
-           it('Non-existent User Status - Negative test', function(done){
+           it('Non-existent User Status - EXPECTED FAILURE(Negative test)', function(done){
                     coreapi.fetcher('/user/0/status', function(text){
                     // console.log("Non-existent USER's Status > "+text);
                     expect(text).to.not.contain("AssociatedError");
@@ -240,7 +262,7 @@ describe('Tests for Group Tests', function(){
                     });
              });
 
-           it('All Services fetch - EXPECTED FAILURE due to CheckPermissions Fn20', function(done){     // PERMISSIONS ERROR CheckPermissions Fn20
+           it('All Services fetch - EXPECTED FAILURE(CheckPermissions Fn20)', function(done){     // PERMISSIONS ERROR CheckPermissions Fn20
                      coreapi.fetcher('/services', function(text){
                      // console.log("ALL SERVICES  > "+text);
                      expect(text).to.not.contain("AssociatedError");
@@ -248,7 +270,7 @@ describe('Tests for Group Tests', function(){
                   });
              });
 
-           it('All Functions fetch - EXPECTED FAILURE due to CheckPermissions Fn22', function(done){
+           it('All Functions fetch - EXPECTED FAILURE(CheckPermissions Fn22)', function(done){
                      coreapi.fetcher('/functions', function(text){    // PERMISSIONS ERROR CheckPermissions Fn22
                      // console.log("ALL FUNCTIONS  > "+text);
                      expect(text).to.not.contain("AssociatedError");
@@ -274,9 +296,9 @@ describe('Tests for Group Tests', function(){
                  var blippName = "Blipp_"+now.getTime();
                  var blippbody = {"Name" : blippName, "Description":"Test Blipp creation from API", "BlippTypeId" :3}
                  coreapi.creator('/campaign/82162/blipp',blippbody, function(text) {
-                         // console.log('Created Blipp '+text);
-                         expect(text).to.contain("CreatedAt", "CreatedByUserId");
-                         done();
+                     // console.log('Created Blipp '+text);
+                     expect(text).to.contain("CreatedAt", "CreatedByUserId");
+                     done();
                 });
            });
 
@@ -284,11 +306,48 @@ describe('Tests for Group Tests', function(){
                  var groupName = "TestGrp_"+now.getTime();
                  var groupbody = {"Name" : groupName}
                  coreapi.creator('/group',groupbody, function(text) {
-                         // console.log('Created Group '+text);
-                         expect(text).to.contain("CreatedByUserId", "CreatedAt");
-                         done();
+                     // console.log('Created Group '+text);
+                     expect(text).to.contain("CreatedByUserId", "CreatedAt");
+                     done();
                  });
            });
+
+           it('PUB-13 hasStats=1 for a published Project(Pepsi)', function(done) {
+                 coreapi.fetcher('/campaign/2080/blipps?has_stats=1', function(text){
+                     expect(text).to.contain( "Features", "HasStats" );
+                     done();
+                 });
+           });
+
+           it('PUB-13 hasStats=0 for a published Project(Tinkle)', function(done) {
+
+                 coreapi.fetcher('/campaign/13793/blipps?has_stats=0', function(text){
+                     // console.log("HasStats with FEATURES > "+text);
+                     expect(text).to.not.contain("HasStats");
+                     expect(text).to.have.length( 3 );
+                     done();
+                 });
+            });
+
+           it('PUB-13 hasStats=0 for a Project(Pepsi)', function(done) {
+
+                  coreapi.fetcher('/campaign/2080/blipps?has_stats=false', function(text){
+                      // console.log("HasStats with FEATURES > "+text);
+                      expect(text).to.not.contain("HasStats");
+                      expect(text).to.have.length( 3 );
+                      done();
+                  });
+           });
+
+           it('PUB-13 hasStats=true for a Project(General Mills)', function(done) {
+
+                 coreapi.fetcher('/campaign/12077/blipps?has_stats=true', function(text){
+                      // console.log("HasStats with FEATURES > "+text);
+                       expect(text).to.contain( "Features", "HasStats" );
+                      done();
+                 });
+           });
+
 
            /* it('Delete a Project', function(done){
                   var delresp = ' ';
