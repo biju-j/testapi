@@ -9,7 +9,9 @@ Core API tests - Steps to run
     
     4. Run setup as npm run setup
 
-    5. Run Tests as npm run apitests
+    5. Run Tests as npm run apitests or from /automat-api run $mocha ./tests/apitests.js --reporter mochawesome
     
-       Tests should be run and Passing and Failing(Red) tests displayed.  
+       Tests will be run and Passing and Failing(Red) tests displayed.  
        FAILURES are expected due to few Negative tests and lack of Permissions for the user. 
+
+       Test Reports will be available under /automat-api/mochawesome-reports/mochawesome.html
