@@ -65,3 +65,5 @@ jspm_packages
 
 # ignore .DS_Store
 .DS_Store
+# ignore mochawesome-reports
+mochawesome-reports/
