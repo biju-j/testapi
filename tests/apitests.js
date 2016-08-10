@@ -1,6 +1,8 @@
 'use strict';
 var mocha = require('mocha');
 var CoreAPI = require('../tests/coreapi');
+var logging      = require( '../config/config-log4js.js' );
+var logger=logging.LOG;
 
 var chai   = require( 'chai' );
 var expect = chai.expect;
@@ -12,14 +14,15 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
            this.timeout(200000);
             figlet.text("API Tests", function(error, data) {
                if (error)
-                 console.error(error);
+                 logger.error(error);
                else
-                 console.log(data);
+                 logger.log(data);
              });
 
            it('All Groups fetch', function(done){
                      coreapi.fetcher('/groups', function(text){
                      // console.log('All >'+text);
+                     logger.info('All Groups fetch');
                      expect( text ).to.contain("Id", "Name", "OwnedByUserId", "Type", "CampaignCount");
                      done();
                  });
@@ -29,6 +32,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
            it('Group 7 Status fetch', function(done){
                      coreapi.fetcher('/group/7/status', function(text){
                      // console.log("Test >"+text);
+                     logger.info('Group 7 Status fetch');
                      expect(text).to.contain("Id", "Name", "Key");
                      done();
                 });
@@ -378,4 +382,3 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
            });
 
 });
-
