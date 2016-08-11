@@ -1,12 +1,12 @@
 {
   "name": "automat-api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Core API Tests",
   "author": "Platform QA Team",
   "license": "UNLICENSED",
   "scripts": {
     "setup": "npm update",
-    "apitests": "mocha ./tests/apitests.js --reporter mochawesome"
+    "apitests": "mocha ./\"Acceptance tests\"/*.js --reporter mochawesome --reporter-options reportDir=reports,reportName=automat-api,reportTitle=\"automat-api Test Execution Results\",inlineAssets=true"
   },
   "repository": {
     "type": "git",
