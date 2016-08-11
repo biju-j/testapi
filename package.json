@@ -1,6 +1,6 @@
 {
   "name": "automat-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Core API Tests",
   "author": "Platform QA Team",
   "license": "UNLICENSED",
@@ -13,10 +13,10 @@
     "url": "git+https://github.com/blippar/automat-api.git"
   },
   "dependencies": {
-    "mocha":  "~3.0.2",
+    "mocha": "~3.0.2",
     "mochawesome": "~1.4.0",
-    "chai":   "~2.3.0",
+    "chai": "~2.3.0",
     "figlet": "~1.1.2",
-    "log4js":"~0.6.38"
+    "log4js": "~0.6.38"
   }
 }
