@@ -2,16 +2,17 @@
 Core API tests - Steps to run
 
     1. Clone automat-api Repo.
-    
+
     2. cd automat-api
-    
+
     3. Checkout branch jsapitests & pull
-    
+
     4. Run setup as npm run setup
 
-    5. Run Tests as npm run apitests or from /automat-api run $mocha ./tests/apitests.js --reporter mochawesome
-    
-       Tests will be run and Passing and Failing(Red) tests displayed.  
-       FAILURES are expected due to few Negative tests and lack of Permissions for the user. 
+    5. Run Tests as npm run apitests
 
-       Test Reports will be available under /automat-api/mochawesome-reports/mochawesome.html
+       Tests will be run and Passing and Failing(Red) tests displayed.  
+       FAILURES are expected due to few Negative tests and lack of Permissions for the user.
+
+       Test Reports will be available under /automat-api/reports/automat-api.html
+       Test Logs will be available under /automat-api/logs
