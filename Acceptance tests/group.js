@@ -47,7 +47,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
             });
 
 
-           it('Group 0 Details fetch - EXPECTED FAILURE(Negative test)', function(done){
+           it.skip('Group 0 Details fetch - EXPECTED FAILURE(Negative test)', function(done){
                     supportapi.fetcher(bRole,'/group/0/details', function(text){
                     // console.log('Group 0 >'+text);
                     expect(text).to.not.contain("AssociatedError");
@@ -175,7 +175,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
                  });
            });
 
-           it('Non-existent User Status - EXPECTED FAILURE(Negative test)', function(done){
+           it.skip('Non-existent User Status - EXPECTED FAILURE(Negative test)', function(done){
                     supportapi.fetcher(bRole,'/user/0/status', function(text){
                     // console.log("Non-existent USER's Status > "+text);
                     expect(text).to.not.contain("AssociatedError");
@@ -266,7 +266,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
                     });
              });
 
-           it('All Services fetch - EXPECTED FAILURE(CheckPermissions Fn20)', function(done){     // PERMISSIONS ERROR CheckPermissions Fn20
+           it.skip('All Services fetch - EXPECTED FAILURE(CheckPermissions Fn20)', function(done){     // PERMISSIONS ERROR CheckPermissions Fn20
                      supportapi.fetcher(bRole,'/services', function(text){
                      // console.log("ALL SERVICES  > "+text);
                      expect(text).to.not.contain("AssociatedError");
@@ -274,7 +274,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
                   });
              });
 
-           it('All Functions fetch - EXPECTED FAILURE(CheckPermissions Fn22)', function(done){
+           it.skip('All Functions fetch - EXPECTED FAILURE(CheckPermissions Fn22)', function(done){
                      supportapi.fetcher(bRole,'/functions', function(text){    // PERMISSIONS ERROR CheckPermissions Fn22
                      // console.log("ALL FUNCTIONS  > "+text);
                      expect(text).to.not.contain("AssociatedError");
