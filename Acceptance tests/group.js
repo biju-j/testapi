@@ -372,8 +372,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
            }); */
 
 
-           it('Media job details', function(done){
-
+           it.skip('Media job details', function(done){
                   supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/1470381054000-m9gg5i', function(text) {
                       // console.log('Media job details'+text);
                       expect(text).to.contain("blipp_media_preset", "SUBMITTED", "THUMBS_CREATED", "PROGRESSING", "COMPLETED");
