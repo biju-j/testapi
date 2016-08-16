@@ -9,10 +9,10 @@ function AddZero(num) {
 log4js.configure({
 appenders: [
    { type: 'console' },
-   { type: 'file', filename: './logs/automatexecution'+ strDateTime +'.log',
-   category: 'automatexecution' }
+   { type: 'file', filename: './logs/automat-api-execution'+ strDateTime +'.log',
+   category: 'automat-api-execution' }
   ]
 });
-var logger  = log4js.getLogger('automatexecution');
+var logger  = log4js.getLogger('automat-api-execution');
             logger.setLevel('DEBUG');
 module.exports.LOG=logger;
