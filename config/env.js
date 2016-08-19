@@ -9,7 +9,7 @@ envdetails.url = {
     dev: {
         hub: 'https://hub.dev.blippar.com/',
         bd: 'https://builder.dev.blippar.com/',
-        api:'sf-api.dev.blippar.com',
+        api:'alpha-api.dev.blippar.com',
         transcoder:'medias.dev.blippar.com'
     },
     qa: {
