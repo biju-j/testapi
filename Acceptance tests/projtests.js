@@ -74,19 +74,19 @@ describe(' Project, BlippBuilder(Classic) and Version creation tests', function(
 
 });
 
-          /*  // Below is for Bespoke, which is commented as it needs refactoring to remove dependency of common blippid
-
+          /*  // Below is Bespoke working, commented as it needs refactoring to remove dependency of common "blippid"
+              // If Bespoke tests below is being run, comment out above builder_v2(classic)
           it('Create a new Bespoke blipp named TestBasic', function(done){
-                                   var bapi = "/campaign/"+projid+"/blipp";
-                                   var blippName = "TestBBC"+now.getTime();
-                                   //1 is for Bespoke blipp
-                                   var blippbody = {"Name" : blippName, "Description":"Test Blipp created from API", "BlippTypeId" :1}
-                                       supportapi.creator(bRole,bapi,blippbody, function(blipp) {
-                                             bid = JSON.parse(blipp);
-                                             global.blippid = bid.Id;
-                                             logger.info("Blipp Created and global blippid >>> "+blippid);
-                                             done();
-                                   });
+                      var bapi = "/campaign/"+projid+"/blipp";
+                      var blippName = "TestBBC"+now.getTime();
+                      //1 is for Bespoke blipp
+                      var blippbody = {"Name" : blippName, "Description":"Test Blipp created from API", "BlippTypeId" :1}
+                      supportapi.creator(bRole,bapi,blippbody, function(blipp) {
+                                bid = JSON.parse(blipp);
+                                global.blippid = bid.Id;
+                                logger.info("Blipp Created and global blippid >>> "+blippid);
+                                done();
+                       });
 
           });
 
