@@ -374,8 +374,7 @@ describe(' GROUP, USER, PROJECTS, BLIPP, MEDIA, PERMISSIONS and MEDIACODER ', fu
 
          it('Media job details', function(done){
                     supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text1) {
-                      done();
-                      supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/'+text1, function(text) {
+                    supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/'+text1, function(text) {
                         expect(text).to.contain("blipp_media_preset", "SUBMITTED", "THUMBS_CREATED", "PROGRESSING", "COMPLETED");
                         logger.info('Media job details'+text);
                         done();
