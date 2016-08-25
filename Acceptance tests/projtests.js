@@ -104,7 +104,7 @@ describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc.,
            });
 
            it('Fetch Cover of BB Classic blipp created', function(done){
-                   supportapi.fetcher(bRole,'/campaign/'+bbclassicid+'/lastmarkers', function(text){
+                   supportapi.fetcher(bRole,'/blipp/'+bbclassicid+'/lastmarkers', function(text){
                    expect(text).to.contain("markers");
                    done();
                 });
