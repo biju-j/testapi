@@ -71,4 +71,20 @@ describe(' USERS Tests', function(){
                  });
            });
 
+           it('User Statuses', function(done){
+                    supportapi.fetcher(bRole,'/userstatuses', function(text){
+                    // console.log("Existent USER Status > "+text);
+                    expect(text).to.contain("Draft", "Pending", "Active", "Deleted", "reset_password");
+                    done();
+                 });
+           });
+
+           it('User roles', function(done){
+                    supportapi.fetcher(bRole,'/userroles', function(text){
+                    // console.log("Existent USER Status > "+text);
+                    expect(text).to.contain("normal_user", "group_admin", "blippar_admin", "root_admin", "blippar_user", "bespoke_user", "cc_user", "ad_user", "testing_signup_user", "blippbuilder_flash_user", "blippbuilder_javascript_user", "bespoke_blippbasic_user", "bespoke_javascript_user", "external_developer");
+                    done();
+                 });
+           });
+
 });
