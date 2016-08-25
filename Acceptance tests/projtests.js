@@ -104,7 +104,7 @@ describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc.,
 
            it('Fetch Cover of BB Classic blipp created', function(done){
                    supportapi.fetcher(bRole,'/blipp/'+bbclassicid+'/markers', function(text){
-                   expect(text).to.contain("markers");
+                   expect(text).to.contain("NASA.jpeg");
                    done();
                 });
            });
