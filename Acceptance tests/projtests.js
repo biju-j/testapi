@@ -22,27 +22,25 @@ before(function(done) {
                         projid = projt.Id;
                         logger.info("Proj Created and global projt.Id >> "+projid);
 
-                  var basicName = "Bespoke_"+now.getTime();
-                  var basicbody = {"Name" : basicName, "Description":"Test Blipp created from API", "BlippTypeId" :1}  //3 is for blippbuilder v2
-                  supportapi.creator(bRole,"/campaign/"+projid+"/blipp",basicbody, function(blipp) {
+                        var basicName = "Bespoke_"+now.getTime();
+                        var basicbody = {"Name" : basicName, "Description":"Test Blipp created from API", "BlippTypeId" :1}  //3 is for blippbuilder v2
+                      supportapi.creator(bRole,"/campaign/"+projid+"/blipp",basicbody, function(blipp) {
                           var bid = JSON.parse(blipp);
                           bespokeid =  bid.Id;
                           logger.info("Blipp Bespoke Created and global bespokeid >>> "+bespokeid);
 
-                  });
+                      });
 
-                  var bbcname = "BBClassic_"+now.getTime();
-                  var bbcbody = {"Name" : bbcname, "Description":"Test Blipp created from API", "BlippTypeId" :3}  //3 is for blippbuilder v2
-                  supportapi.creator(bRole,"/campaign/"+projid+"/blipp",bbcbody, function(bbasic) {
+                      var bbcname = "BBClassic_"+now.getTime();
+                      var bbcbody = {"Name" : bbcname, "Description":"Test Blipp created from API", "BlippTypeId" :3}  //3 is for blippbuilder v2
+                      supportapi.creator(bRole,"/campaign/"+projid+"/blipp",bbcbody, function(bbasic) {
                           var bid = JSON.parse(bbasic);
                           bbclassicid =  bid.Id;
                           logger.info("Blipp Basic Classic and global bbasicid >>> "+bbclassicid);
                           done();
-                  });
-
-
-                });
-           });
+                       });
+               });
+});
 
 describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc., creation tests', function(){
            this.timeout(20000000);
@@ -90,7 +88,7 @@ describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc.,
 
            });
 
-           it('Fetch Cover of Project created', function(){
+           it('Fetch Cover of Project created', function(done){
                    supportapi.fetcher(bRole,'/campaign/'+projid+'/cover', function(text){
                        console.log("ALL FUNCTIONS  > "+text);
                        expect(text).to.contain("markers");
@@ -98,21 +96,21 @@ describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc.,
                    });
            });
 
-           it('Fetch Cover of Project created', function(){
+           it('Fetch Cover of Project created', function(done){
                    supportapi.fetcher(bRole,'/campaign/'+projid+'/lastmarkers', function(text){
                    expect(text).to.contain("NASA.jpeg","m1.jpeg");
                    done();
                   });
            });
 
-           it('Fetch Cover of BB Classic blipp created', function(){
+           it('Fetch Cover of BB Classic blipp created', function(done){
                    supportapi.fetcher(bRole,'/campaign/'+bbclassicid+'/lastmarkers', function(text){
                    expect(text).to.contain("markers");
                    done();
                 });
            });
 
-           it('Fetch Blipps of Project created', function(){
+           it('Fetch Blipps of Project created', function(done){
                      supportapi.fetcher(bRole,'/campaign/'+projid+'/blipps', function(text){
                      expect(text).to.contain(projid,"Test Blipp created from API");
                      done();
