@@ -90,13 +90,12 @@ describe(' Project, Bespoke, BlippBuilder(Classic) Version, PList, Markers etc.,
 
            it('Fetch Cover of Project created', function(done){
                    supportapi.fetcher(bRole,'/campaign/'+projid+'/cover', function(text){
-                       console.log("ALL FUNCTIONS  > "+text);
                        expect(text).to.contain("markers");
                        done();
                    });
            });
 
-           it('Fetch Cover of Project created', function(done){
+           it('Fetch Markers of Project created', function(done){
                    supportapi.fetcher(bRole,'/campaign/'+projid+'/lastmarkers', function(text){
                    expect(text).to.contain("NASA.jpeg","m1.jpeg");
                    done();
