@@ -10,7 +10,7 @@ var now = new Date();
 var supportapi = new SupportAPI();
 var figlet = require("figlet");
 var bRole='blippar_admin';
-describe(' GROUP, PROJECTS and MEDIACODER Tests', function(){
+describe(' GROUPcand MEDIACODER Tests', function(){
            this.timeout(200000);
             figlet.text("API Tests", function(error, data) {
                if (error)
@@ -145,21 +145,6 @@ describe(' GROUP, PROJECTS and MEDIACODER Tests', function(){
                   });
              });
 
-           it('Specific User supported Medias fetch', function(done){
-                      supportapi.fetcher(bRole,'/user/6411/medias', function(text){
-                      // logger.info("User's medias > "+text);
-                      expect(text).to.not.have.length( 0 );
-                      done();
-                  });
-             });
-
-           it('User\'s Media favourites', function(done){
-                     supportapi.fetcher(bRole,'/user/6411/medias/favorites', function(text){
-                     // logger.info("USER's MEDIA FAVOURITES > "+text);
-                     expect(text).to.not.have.length( 0 );
-                     done();
-                  });
-             });
 
            it('All Countries fetch', function(done){
                        supportapi.fetcher(bRole,'/countries', function(text){
@@ -197,16 +182,6 @@ describe(' GROUP, PROJECTS and MEDIACODER Tests', function(){
                         expect(text).to.contain("CreatedAt", "CreatedByUserId");
                         done();
                   });
-           });
-
-           it('Create a new Blipp', function(done){
-                 var blippName = "Blipp_"+now.getTime();
-                 var blippbody = {"Name" : blippName, "Description":"Test Blipp creation from API", "BlippTypeId" :3}
-                 supportapi.creator(bRole,'/campaign/82162/blipp',blippbody, function(text) {
-                     // logger.info('Created Blipp '+text);
-                     expect(text).to.contain("CreatedAt", "CreatedByUserId");
-                     done();
-                });
            });
 
            it('Create a new Group', function(done){
@@ -276,7 +251,7 @@ describe(' GROUP, PROJECTS and MEDIACODER Tests', function(){
                 });
            });
 
-         it('Media job details', function(done){
+           it('Media job details', function(done){
                     supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text1) {
                     supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/'+text1, function(text) {
                         expect(text).to.contain("blipp_media_preset", "SUBMITTED", "THUMBS_CREATED", "PROGRESSING", "COMPLETED");

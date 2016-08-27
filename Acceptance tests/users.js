@@ -13,12 +13,20 @@ var supportapi = new SupportAPI();
 var bRole='blippar_admin';
 describe(' USERS Tests', function(){
            this.timeout(200000);
-it('All Users', function(done){
+           it('All Users', function(done){
                     supportapi.fetcher(bRole,'/users', function(text){
                     // logger.info("All users > "+text);
                     expect(text).to.contain("Email", "Groups", "Roles", "Status", "Campaigns");
                     done();
                  });
+           });
+
+           it('Total Projects of a user', function(done){
+                     supportapi.fetcher(bRole,'/user/2962/campaigns/count', function(text){
+                     logger.info('Total projects of user >'+Number(text));
+                     expect(Number(text)).to.be.a('number');
+                     done();
+                  });
            });
 
            it('Permissions of a User', function(done){
@@ -90,7 +98,7 @@ it('All Users', function(done){
                      expect( Number(text) ).to.be.a('number');
                      done();
                    });
-            });
+           });
 
 
            it('User Roles', function(done){
@@ -99,7 +107,7 @@ it('All Users', function(done){
                      expect(text).to.contain("normal_user", "blippar_user", "group_admin", "blippar_admin", "root_admin", "ad_user", "signup_user", "testing_signup_user", "blippbuilder_flash_user", "blippbuilder_javascript_user", "bespoke_blippbasic_user", "bespoke_javascript_user", "external_developer");
                      done();
                    });
-            });
+           });
 
 
            it('User Statuses', function(done){
@@ -108,6 +116,23 @@ it('All Users', function(done){
                     expect(text).to.contain("Draft", "Pending", "Active", "Deleted", "reset_password");
                     done();
                   });
-            });
+           });
+
+           it('Specific User supported Medias fetch', function(done){
+                      supportapi.fetcher(bRole,'/user/6411/medias', function(text){
+                      // logger.info("User's medias > "+text);
+                      expect(text).to.not.have.length( 0 );
+                      done();
+                  });
+           });
+
+           it('User\'s Media favourites', function(done){
+                     supportapi.fetcher(bRole,'/user/6411/medias/favorites', function(text){
+                     // logger.info("USER's MEDIA FAVOURITES > "+text);
+                     expect(text).to.not.have.length( 0 );
+                     done();
+                  });
+           });
+
 
 });
