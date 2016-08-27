@@ -19,6 +19,16 @@ describe(' MEDIA & MEDIACODER Tests', function(){
                   });
            });
 
+           it('Upload to MediaCoder', function(done){
+                  var mediaresp = ' ';
+                  supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text) {
+                        mediaresp += text;
+                    //expect(groupresp).to.have.all.keys("BlippId", "CreatedAt");
+                    logger.info('mediaresp-------'+mediaresp);
+                  done();
+                });
+           });
+
            it('Media job details', function(done){
                     supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text1) {
                     supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/'+text1, function(text) {

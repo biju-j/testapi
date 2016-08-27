@@ -8,7 +8,7 @@
     "setup": "npm update",
     "apitests": "mocha ./\"Acceptance tests\"/*.js --reporter mochawesome --reporter-options reportDir=reports,reportName=automat-api,reportTitle=\"automat-api Test Execution Results\",inlineAssets=true",
     "blipptests": "mocha ./\"Acceptance tests\"/blipptests.js --reporter mochawesome --reporter-options reportDir=reports,reportName=automat-api,reportTitle=\"automat-api Test Execution Results\",inlineAssets=true",
-    "only" : "mocha ./\"Acceptance tests\"/ --grep "
+    "only" : "mocha ./\"Acceptance tests\"/ -g "
   },
   "repository": {
     "type": "git",

@@ -71,7 +71,7 @@ before(function(done) {
 
            });
 });
-describe(' PROJECT with BESPOKE, CLASSIC(version, plist), BLIPP API(jsversion, publish) Tests', function(){
+describe(' BLIPP Creation Tests in a Project - BESPOKE, CLASSIC(version, plist), BLIPP API(jsversion, publish - country 'IN' )', function(){
            this.timeout(20000000);
 
            it('Create a new Bespoke Blipp Version ',function(done){
