@@ -8,17 +8,10 @@ var chai   = require( 'chai' );
 var expect = chai.expect;
 var now = new Date();
 var supportapi = new SupportAPI();
-var figlet = require("figlet");
-var bRole='blippar_admin';
-describe(' GROUPcand MEDIACODER Tests', function(){
-           this.timeout(200000);
-            figlet.text("API Tests", function(error, data) {
-               if (error)
-                 logger.error(error);
-               else
-                 logger.info(data);
-             });
 
+var bRole='blippar_admin';
+describe(' GROUP and other generic Tests', function(){
+           this.timeout(200000);
            it('All Groups fetch', function(done){
                      supportapi.fetcher(bRole,'/groups', function(text){
                      // logger.info('All >'+text);
@@ -131,7 +124,7 @@ describe(' GROUPcand MEDIACODER Tests', function(){
 
            it('PROJECTS Count ', function(done){
                     supportapi.fetcher(bRole,'/campaigns/count', function(text){
-                    logger.info("PROJECTS Count > "+Number(text) );
+                    logger.info("PROJECTS Count > "+Number(text));
                     expect(Number(text) ).to.be.a('number');
                     done();
                   });
@@ -241,24 +234,6 @@ describe(' GROUPcand MEDIACODER Tests', function(){
             });
            */
 
-           it('Upload to MediaCoder', function(done){
-                  var mediaresp = ' ';
-                  supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text) {
-                        mediaresp += text;
-                    //expect(groupresp).to.have.all.keys("BlippId", "CreatedAt");
-                    logger.info('mediaresp-------'+mediaresp);
-                  done();
-                });
-           });
 
-           it('Media job details', function(done){
-                    supportapi.mediauploader('blippar_admin','/../resources/assets/teamwork.mp4', function(text1) {
-                    supportapi.mediapoller(bRole,'/api/v1/transcoder/jobs/'+text1, function(text) {
-                        expect(text).to.contain("blipp_media_preset", "SUBMITTED", "THUMBS_CREATED", "PROGRESSING", "COMPLETED");
-                        logger.info('Media job details'+text);
-                        done();
-                      });
-                  });
-           });
 
 });

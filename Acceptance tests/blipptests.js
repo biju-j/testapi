@@ -5,13 +5,22 @@ var logging      = require( '../config/config-log4js.js' );
 var fs = require('fs');
 var logger=logging.LOG;
 var chai   = require( 'chai' );
+var figlet = require("figlet");
 var expect = chai.expect;
 var now = new Date();
 var supportapi = new SupportAPI();
 var bRole='blippar_admin';
 
 before(function(done) {
-                 this.timeout(20000000);
+             this.timeout(20000000);
+             figlet.text("API Tests", function(error, data) {
+               if (error)
+                 logger.error(error);
+               else
+                 logger.info(data);
+             });
+
+
                   var projName = "TestAPI_"+now.getTime();
                   var projbody = { "Name": projName,
                                    "Description":"Test Proj created from API"
