@@ -66,3 +66,4 @@ jspm_packages
 .DS_Store
 # ignore reports
 reports/
+node_modules

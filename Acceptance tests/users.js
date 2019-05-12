@@ -4,13 +4,13 @@ var SupportAPI = require('../lib/support.js');
 var logging      = require( '../config/config-log4js.js' );
 var fs = require('fs');
 var logger=logging.LOG;
-
+var figlet = require("figlet");
 var chai   = require( 'chai' );
 var expect = chai.expect;
 var now = new Date();
 var supportapi = new SupportAPI();
 
-var bRole='blippar_admin';
+var bRole='check_admin';
 describe(' USERS Tests', function(){
            this.timeout(200000);
            it('All Users', function(done){
@@ -84,7 +84,7 @@ describe(' USERS Tests', function(){
                 });
            });
 
-           it('User Projects', function(done){
+           it('User\'s AllProjects', function(done){
                      supportapi.fetcher(bRole,'/user/6411/campaigns', function(text){
                      // logger.info("User Projects > "+text);
                      expect(text).to.contain("GroupId", "CreatedByUserId", "PublishDate");
@@ -92,7 +92,7 @@ describe(' USERS Tests', function(){
                   });
            });
 
-           it('User Campaigns Count', function(done){
+           it('User PROJECTSCount', function(done){
                      supportapi.fetcher(bRole,'/user/6411/campaigns/count', function(text){
                      // logger.info("Campaign Count of user > "+text);
                      expect( Number(text) ).to.be.a('number');
@@ -104,7 +104,7 @@ describe(' USERS Tests', function(){
            it('User Roles', function(done){
                      supportapi.fetcher(bRole,'/userroles', function(text){
                      // logger.info("USER ROLES > "+text);
-                     expect(text).to.contain("normal_user", "blippar_user", "group_admin", "blippar_admin", "root_admin", "ad_user", "signup_user", "testing_signup_user", "blippbuilder_flash_user", "blippbuilder_javascript_user", "bespoke_blippbasic_user", "bespoke_javascript_user", "external_developer");
+                     expect(text).to.contain("normal_user", "blippar_user", "group_admin", "check_admin", "root_admin", "ad_user", "signup_user", "testing_signup_user", "blippbuilder_flash_user", "blippbuilder_javascript_user", "bespoke_blippbasic_user", "bespoke_javascript_user", "external_developer");
                      done();
                    });
            });
@@ -115,22 +115,6 @@ describe(' USERS Tests', function(){
                     // logger.info("USER STATUSES > "+text);
                     expect(text).to.contain("Draft", "Pending", "Active", "Deleted", "reset_password");
                     done();
-                  });
-           });
-
-           it('Specific User supported Medias fetch', function(done){
-                      supportapi.fetcher(bRole,'/user/6411/medias', function(text){
-                      // logger.info("User's medias > "+text);
-                      expect(text).to.not.have.length( 0 );
-                      done();
-                  });
-           });
-
-           it('User\'s Media favourites', function(done){
-                     supportapi.fetcher(bRole,'/user/6411/medias/favorites', function(text){
-                     // logger.info("USER's MEDIA FAVOURITES > "+text);
-                     expect(text).to.not.have.length( 0 );
-                     done();
                   });
            });
 

@@ -2,17 +2,16 @@
   "name": "automat-api",
   "version": "0.0.2",
   "description": "Core API Tests",
-  "author": "Platform QA Team",
+  "author": "bijuj",
   "license": "UNLICENSED",
   "scripts": {
     "setup": "npm update",
     "apitests": "mocha ./\"Acceptance tests\"/*.js --reporter mochawesome --reporter-options reportDir=reports,reportName=automat-api,reportTitle=\"automat-api Test Execution Results\",inlineAssets=true",
-    "blipptests": "mocha ./\"Acceptance tests\"/blipptests.js --reporter mochawesome --reporter-options reportDir=reports,reportName=automat-api,reportTitle=\"automat-api Test Execution Results\",inlineAssets=true",
     "only" : "mocha ./\"Acceptance tests\"/ -g "
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blippar/automat-api.git"
+    "url": "git+https://github.com/biju-j/automat-api.git"
   },
   "dependencies": {
     "mocha": "~3.0.2",

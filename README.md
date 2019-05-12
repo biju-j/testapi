@@ -1,5 +1,5 @@
 # automat-api
-Core API tests - Steps to run
+API tests - Steps to run
 
     1. Clone automat-api Repo.
 

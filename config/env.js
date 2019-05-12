@@ -1,34 +1,20 @@
 var envdetails = {}
 envdetails.url = {
-    alpha: {
-        hub: 'https://alpha-hub.dev.blippar.com/',
-        bd: 'https://builder-qa.dev.blippar.com/',
-        api: 'alpha-api.dev.blippar.com',
-        transcoder:'medias.dev.blippar.com'
-    },
+
     dev: {
-        hub: 'https://hub.dev.blippar.com/',
-        bd: 'https://builder.dev.blippar.com/',
-        api:'alpha-api.dev.blippar.com',
-        transcoder:'medias.dev.blippar.com'
+        mill: 'https://mill-dev.check.com/',
+        bd: 'https://builder.dev.com/',
+        api:'dev-api.com'
     },
     qa: {
-        hub: 'https://hub-qa.dev.blippar.com/',
-        bd: 'https://builder-qa.dev.blippar.com/',
-        api: 'sf-qa-api.dev.blippar.com',
-        transcoder:'medias.dev.blippar.com'
+        mill: 'https://mill-qa.com/',
+        bd: 'https://mill-builder-qa.com/',
+        api: 'mill-api-qa.com'
     },
     staging: {
-        hub: 'https://hub-staging.blippar.com/',
-        cb: 'https://builder-staging.blippar.com/',
-        api:'sf-staging-api.dev.blippar.com',
-        transcoder:'medias.dev.blippar.com'
-    },
-    prod: {
-        hub: 'https://hub.blippar.com/',
-        cb: 'https://builder.blippar.com/',
-        api:'api.dev.blippar.com',
-        transcoder:'medias.dev.blippar.com'
+        hub: 'https://mill-staging.com/',
+        cb: 'https://mill-builder-staging..com/',
+        api:'mill-staging-api.dev.com'
     }
 };
 
