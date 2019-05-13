@@ -5,7 +5,7 @@ API tests - Steps to run
 
     2. cd automat-api
 
-    3. Checkout branch jsapitests & pull
+    3. Checkout branch master & pull
 
     4. Run setup as npm run setup
 
